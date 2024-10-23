@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Access Control - Purple Admin</title>
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+    <style>
+        .badge {
+            padding: 5px;
+            font-size: 12px;
+        }
+        .btn-sm {
+            margin: 2px;
+        }
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+            .table {
+                min-width: 600px; /* Set a minimum width for the table */
+            }
+        }
+        /* New styles for action panel */
+        .action-panel {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .action-panel h4 {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .permission-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- Navbar -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="index.html" style="font-weight: bold; color: rgb(214, 2, 214);">DevHub</a>
+                <a class="navbar-brand brand-logo-mini" href="index.html" style="font-weight: bold; color: rgb(231, 0, 231);">DH</a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile">
+                        <a class="nav-link" href="#">
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">Minhaz (Manager)</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- Sidebar -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="access_control.html">
+                            <span class="menu-title">Access Control</span>
+                            <i class="mdi mdi-account-key menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">
+                            <span class="menu-title">Manage Projects</span>
+                            <i class="mdi mdi-folder-outline menu-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="page-header">
+                        <h3 class="page-title">
+                            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                <i class="mdi mdi-account-key"></i>
+                            </span> Access Control
+                        </h3>
+                    </div>
+
+                    <!-- Manage Access Section -->
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Manage Project Access</h4>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th> Project Name </th>
+                                                    <th> Team Members </th>
+                                                    <th> Frontend Access </th>
+                                                    <th> Backend Access </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="projectTable">
+                                                <tr>
+                                                    <td> Project Alpha </td>
+                                                    <td id="team-alpha">
+                                                        <div class="badge badge-gradient-primary" id="member-alpha-john">John</div>
+                                                        <div class="badge badge-gradient-primary" id="member-alpha-sarah">Sarah</div>
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-gradient-success" id="frontend-access-alpha">Granted</label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-gradient-warning" id="backend-access-alpha">Pending</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Project Beta </td>
+                                                    <td id="team-beta">
+                                                        <div class="badge badge-gradient-primary" id="member-beta-rizwan">Rizwan</div>
+                                                        <div class="badge badge-gradient-primary" id="member-beta-minhaz">Minhaz</div>
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-gradient-danger" id="frontend-access-beta">Denied</label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-gradient-success" id="backend-access-beta">Granted</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions Section (Permission Panel) -->
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="action-panel">
+                                <h4>Manage Permissions</h4>
+                                <div class="permission-grid">
+                                    <div class="permission-card">
+                                        <h5>Project Alpha</h5>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleAccess('frontend-access-alpha')">Toggle Frontend Access</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleAccess('backend-access-alpha')">Toggle Backend Access</button>
+                                        <button class="btn btn-gradient-danger btn-sm" onclick="removeProjectMember('team-alpha', 'Sarah')">Remove Sarah</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleIndividualAccess('member-alpha-john')">Toggle John Access</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleIndividualAccess('member-alpha-sarah')">Toggle Sarah Access</button>
+                                    </div>
+                                    <div class="permission-card">
+                                        <h5>Project Beta</h5>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleAccess('frontend-access-beta')">Toggle Frontend Access</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleAccess('backend-access-beta')">Toggle Backend Access</button>
+                                        <button class="btn btn-gradient-danger btn-sm" onclick="removeProjectMember('team-beta', 'Rizwan')">Remove Rizwan</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleIndividualAccess('member-beta-rizwan')">Toggle Rizwan Access</button>
+                                        <button class="btn btn-gradient-info btn-sm" onclick="toggleIndividualAccess('member-beta-minhaz')">Toggle Minhaz Access</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add New Member Section -->
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Add New Member to Project</h4>
+                                    <form id="addMemberForm">
+                                        <div class="form-group">
+                                            <label for="projectName">Select Project</label>
+                                            <select class="form-control" id="projectName">
+                                                <option value="team-alpha">Project Alpha</option>
+                                                <option value="team-beta">Project Beta</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newMemberName">Member Name</label>
+                                            <input type="text" class="form-control" id="newMemberName" placeholder="Enter member name" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-gradient-primary">Add Member</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle access status
+        function toggleAccess(accessId) {
+            const accessElement = document.getElementById(accessId);
+            if (accessElement.classList.contains('badge-gradient-success')) {
+                accessElement.classList.remove('badge-gradient-success');
+                accessElement.classList.add('badge-gradient-danger');
+                accessElement.innerText = "Denied";
+            } else {
+                accessElement.classList.remove('badge-gradient-danger');
+                accessElement.classList.add('badge-gradient-success');
+                accessElement.innerText = "Granted";
+            }
+        }
+
+        // Function to toggle individual access
+        function toggleIndividualAccess(memberId) {
+            const memberElement = document.getElementById(memberId);
+            if (memberElement.classList.contains('badge-gradient-success')) {
+                memberElement.classList.remove('badge-gradient-success');
+                memberElement.classList.add('badge-gradient-danger');
+                memberElement.innerText += " (No Access)";
+            } else {
+                memberElement.classList.remove('badge-gradient-danger');
+                memberElement.classList.add('badge-gradient-success');
+                memberElement.innerText = memberElement.innerText.replace(" (No Access)", "");
+            }
+        }
+
+        // Function to remove a project member
+        function removeProjectMember(teamId, memberName) {
+            const teamElement = document.getElementById(teamId);
+            const memberElement = document.getElementById(`member-${teamId}-${memberName.toLowerCase()}`);
+            teamElement.removeChild(memberElement);
+        }
+
+        // Function to add a new member
+        document.getElementById('addMemberForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const projectName = document.getElementById('projectName').value;
+            const newMemberName = document.getElementById('newMemberName').value;
+            const teamElement = document.getElementById(projectName);
+            const newMemberBadge = document.createElement('div');
+            newMemberBadge.className = "badge badge-gradient-primary";
+            newMemberBadge.innerText = newMemberName;
+            newMemberBadge.id = `member-${projectName}-${newMemberName.toLowerCase()}`;
+            teamElement.appendChild(newMemberBadge);
+            document.getElementById('newMemberName').value = ''; // Clear input field
+        });
+    </script>
+
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/template.js"></script>
+</body>
+</html>

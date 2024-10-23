@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Middleware to serve static files
+// Serve static files from the "public" directory
 app.use(express.static('public'));
 
-// Start server
+app.get('/trigger-ide', (req, res) => {
+    console.log('IDE triggered');
+    res.json({ message: 'IDE started' });
+});
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
